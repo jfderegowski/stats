@@ -1,0 +1,11 @@
+﻿{
+  "name": "com.fefek5.stats",
+  "version": "1.0.0",
+  "displayName": "Stats",
+  "description": "Fast and easy way to implemant stats in your Unity game.",
+  "unity": "6000.0",
+  "author": {
+    "name": "fefek5",
+    "url": "https://github.com/jfderegowski"
+  }
+}
