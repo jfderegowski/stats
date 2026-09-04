@@ -13,6 +13,7 @@ namespace Runtime
     {
         [SerializeField] private int _exampleNumber;
         [SerializeField] private Stat<int> _intStat;
+        [SerializeField] private Stat<int> _intStat2;
         [SerializeField] private TestStruct _testStruct;
     }
 }
