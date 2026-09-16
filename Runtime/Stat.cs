@@ -1,11 +1,90 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using fefek5.SaveDataVariable.Runtime;
+using fefek5.Toys.Runtime.Attributes;
+using UnityEngine;
 
 namespace Runtime
 {
-    [Serializable]
-    public class Stat<T> : SaveVar<T>
+    public class Stat<T> : ScriptableObject
     {
+        #region Properties
+
+        public T Value
+        {
+            get => GetValue();
+            set => SetValue(value);
+        }
+
+        public bool IsDirty => _value.IsDirty;
+
+        #endregion
+
+        #region Inspector Fields
+
+        [SerializeField] private SaveVar<T> _value = new("Stats.json", new SaveKey("STAT_NAME"));
+
+        [field: SerializeReference, SerializeReferenceList]
+        public List<StatTransport<T>> Transports { get; private set; } = new();
+
+        #endregion
+
+        #region Getters and Setters
+
+        private T GetValue() => _value;
+
+        public virtual void SetValue(T value) => _value.Value = value;
+
+        #endregion
+
+        public virtual async Task PullAsync() => await PushAsync(CancellationToken.None);
         
+        public virtual async Task PullAsync(CancellationToken cancellationToken) =>
+            await _value.PullAsync(cancellationToken);
+
+        public virtual async Task PullAsync(StatTransport<T> transport, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var value = await transport.PullAsync(cancellationToken);
+
+                _value.Value = value;
+
+                await _value.PushAsync(cancellationToken);
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                throw;
+            }
+        }
+
+        public virtual async Task PushAsync() => await PushAsync(CancellationToken.None);
+        
+        public virtual async Task PushAsync(CancellationToken cancellationToken)
+        {
+            try
+            {
+                await _value.PushAsync(cancellationToken);
+
+                foreach (var transport in Transports)
+                    await transport.PushAsync(Value, cancellationToken);
+            }
+            catch (OperationCanceledException)
+            {
+                throw;
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+                throw;
+            }
+        }
     }
 }
