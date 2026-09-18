@@ -4,6 +4,11 @@
   "displayName": "Stats",
   "description": "Fast and easy way to implemant stats in your Unity game.",
   "unity": "6000.0",
+  "dependencies": {
+    "com.fefek5.save-data": "https://github.com/jfderegowski/save-data.git",
+    "com.fefek5.toys-for-unity": "https://github.com/jfderegowski/toys-for-unity.git",
+    "com.fefek5.steam-toys": "https://github.com/jfderegowski/steam-toys-for-unity.git"
+  },
   "author": {
     "name": "fefek5",
     "url": "https://github.com/jfderegowski"
