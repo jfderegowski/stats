@@ -26,7 +26,7 @@ namespace fefek5.Stats.Runtime
 
         [SerializeField] private SaveVar<T> _value = new("Stats.json", new SaveKey("STAT_NAME"));
 
-        [field: SerializeReference, SerializeReferenceList]
+        [field: SerializeReference, SelectType]
         public List<StatTransport<T>> Transports { get; private set; } = new();
 
         #endregion

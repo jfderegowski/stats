@@ -6,7 +6,7 @@ namespace fefek5.Stats.Runtime
     public class IntStat : Stat<int>
     {
         [ContextMenu("Pull Async")]
-        public void PullAsyncContextMenu() => PushAsync();
+        public void PullAsyncContextMenu() => PullAsync();
 
         [ContextMenu("Push Async")]
         public void PushAsyncContextMenu() => PushAsync();

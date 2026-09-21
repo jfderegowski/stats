@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.2] - 2026-09-21
+
+### Changed
+
+- `Stat<T>.Transports` uses `SelectTypeAttribute` instead of `SerializeReferenceListAttribute`:
+  the transport type is picked on each element, which also works in inspectors that ignore
+  `PropertyAttribute.applyToCollection`, like SaintsField's `SaintsEditor`.
+
+### Fixed
+
+- The "Pull Async" context menu of `IntStat` pushed the stat instead of pulling it.
+
 ## [1.0.1] - 2026-09-21
 
 ### Added
