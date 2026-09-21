@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Runtime
+namespace fefek5.Stats.Runtime
 {
     [Serializable]
     public class TestStruct

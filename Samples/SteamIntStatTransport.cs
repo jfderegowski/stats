@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Runtime;
+using fefek5.Stats.Runtime;
 using UnityEngine;
 
-namespace Samples
+namespace fefek5.Stats.Samples
 {
     [Serializable]
     public class SteamIntStatTransport : StatTransport<int>

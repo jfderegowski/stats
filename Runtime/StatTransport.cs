@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Runtime
+namespace fefek5.Stats.Runtime
 {
     [Serializable]
     public abstract class StatTransport<T>

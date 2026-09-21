@@ -6,7 +6,7 @@ using fefek5.SaveDataVariable.Runtime;
 using fefek5.Toys.Runtime.Attributes;
 using UnityEngine;
 
-namespace Runtime
+namespace fefek5.Stats.Runtime
 {
     public class Stat<T> : ScriptableObject
     {
@@ -39,7 +39,7 @@ namespace Runtime
 
         #endregion
 
-        public virtual async Task PullAsync() => await PushAsync(CancellationToken.None);
+        public virtual async Task PullAsync() => await PullAsync(CancellationToken.None);
         
         public virtual async Task PullAsync(CancellationToken cancellationToken) =>
             await _value.PullAsync(cancellationToken);

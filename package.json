@@ -1,9 +1,10 @@
 ﻿{
   "name": "com.fefek5.stats",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "Stats",
   "description": "Fast and easy way to implemant stats in your Unity game.",
   "unity": "6000.0",
+  "changelogUrl": "https://github.com/jfderegowski/stats/blob/main/CHANGELOG.md",
   "dependencies": {
     "com.fefek5.save-data": "https://github.com/jfderegowski/save-data.git",
     "com.fefek5.toys-for-unity": "https://github.com/jfderegowski/toys-for-unity.git",
