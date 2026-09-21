@@ -1,0 +1,32 @@
+# Changelog
+
+All notable changes to this package will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [1.0.1] - 2026-09-21
+
+### Added
+
+- `fefek5.Stats.Runtime` assembly definition, so the package compiles when installed
+  through the Package Manager.
+- `fefek5.Stats.Samples` assembly definition for `SteamIntStatTransport`.
+
+### Changed
+
+- Stats types now live in the `fefek5.Stats.Runtime` assembly instead of `Assembly-CSharp`,
+  and `SteamIntStatTransport` in `fefek5.Stats.Samples`. Transports serialized under
+  `Assembly-CSharp` have to be re-added.
+
+## [1.0.0] - 2026-09-18
+
+### Added
+
+- `Stat<T>` ScriptableObject that keeps its value in a `SaveVar<T>` and pushes it to a list
+  of transports.
+- `IntStat` and `FloatStat` assets.
+- `StatTransport<T>` base class for pushing and pulling a stat to an external backend.
+- `SteamIntStatTransport` sample that syncs an `IntStat` with a Steam Toys stat.

@@ -1,0 +1,17 @@
+{
+    "name": "fefek5.Stats.Samples",
+    "rootNamespace": "fefek5.Stats.Samples",
+    "references": [
+        "fefek5.Stats.Runtime",
+        "fefek5.SteamToys.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
