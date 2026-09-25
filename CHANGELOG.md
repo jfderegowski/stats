@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-09-25
+
+### Changed
+
+- Updated to the rebuilt `SaveVar<T>` of save-data. `SetValue` keeps the value in memory until
+  `PushAsync`, as before.
+- `PullAsync()` only runs when there is an unsaved value; it no longer reloads the file when
+  nothing changed.
+- `PullAsync(transport)` writes the pulled value to the file straight away.
+
 ## [1.0.2] - 2026-09-21
 
 ### Changed
