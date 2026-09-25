@@ -35,14 +35,17 @@ namespace fefek5.Stats.Runtime
 
         private T GetValue() => _value;
 
-        public virtual void SetValue(T value) => _value.Value = value;
+        public virtual void SetValue(T value) => _value.SetValueWithoutNotifying(value);
 
         #endregion
 
         public virtual async Task PullAsync() => await PullAsync(CancellationToken.None);
         
-        public virtual async Task PullAsync(CancellationToken cancellationToken) =>
-            await _value.PullAsync(cancellationToken);
+        public virtual async Task PullAsync(CancellationToken cancellationToken)
+        {
+            if (_value.IsDirty)
+                await _value.PullAsync(cancellationToken);
+        }
 
         public virtual async Task PullAsync(StatTransport<T> transport, CancellationToken cancellationToken)
         {
@@ -50,9 +53,7 @@ namespace fefek5.Stats.Runtime
             {
                 var value = await transport.PullAsync(cancellationToken);
 
-                _value.Value = value;
-
-                await _value.PushAsync(cancellationToken);
+                await _value.SetValueAsync(value, cancellationToken);
             }
             catch (OperationCanceledException)
             {
@@ -71,7 +72,8 @@ namespace fefek5.Stats.Runtime
         {
             try
             {
-                await _value.PushAsync(cancellationToken);
+                if (_value.IsDirty)
+                    await _value.PushAsync(cancellationToken);
 
                 foreach (var transport in Transports)
                     await transport.PushAsync(Value, cancellationToken);
