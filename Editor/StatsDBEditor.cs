@@ -15,7 +15,7 @@ namespace fefek5.Stats.Editor
     public class StatsDBEditor : UnityEditor.Editor
     {
         private const string StatsField = "_stats";
-        private const string RelativePathField = "_relativePath";
+        private const string RelativePathField = "_filePath";
 
         [MenuItem("Window/Stats/Stats DB")]
         public static void Open() => EditorUtility.OpenPropertyEditor(StatsDB.Instance);
