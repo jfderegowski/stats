@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2026-09-27
+
+### Added
+
+- `StatsDB` singleton asset holding stats as sub-assets. `Save`/`SaveAsync` write every stat to
+  one file in a single `SaveData`, `Load`/`LoadAsync` read it back and hand the values out.
+- `StatsDB` inspector for adding, renaming and removing stats, with live values in play mode.
+  "Window/Stats/Stats DB" opens it.
+- Non generic `Stat` base, so stats of mixed value types fit one list.
+- `Stat<T>.DefaultValue`, `ResetToDefault`, `WriteTo(SaveData)` and `ReadFrom(SaveData)`.
+
+### Changed
+
+- `Stat<T>.Value` is a plain field instead of a `SaveVar<T>`: reading and writing it every frame
+  no longer allocates. Nothing is saved until `StatsDB.Save` or `WriteTo`.
+- `PullAsync()` pulls from the transports instead of the file.
+- The Push/Pull context menus are on every stat, not only `IntStat`.
+
+### Removed
+
+- `Stat<T>.IsDirty` and the per-stat file. Values saved by 1.x are not read.
+
 ## [1.1.0] - 2026-09-25
 
 ### Changed

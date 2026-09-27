@@ -1,6 +1,6 @@
 ﻿{
   "name": "com.fefek5.stats",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "displayName": "Stats",
   "description": "Fast and easy way to implemant stats in your Unity game.",
   "unity": "6000.0",
@@ -8,6 +8,7 @@
   "dependencies": {
     "com.fefek5.save-data": "https://github.com/jfderegowski/save-data.git",
     "com.fefek5.toys-for-unity": "https://github.com/jfderegowski/toys-for-unity.git",
+    "com.fefek5.singleton-system": "https://github.com/jfderegowski/singleton-system.git",
     "com.fefek5.steam-toys": "https://github.com/jfderegowski/steam-toys-for-unity.git"
   },
   "author": {
