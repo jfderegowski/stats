@@ -3,6 +3,8 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using fefek5.SaveDataVariable.Runtime;
+using fefek5.Toys.Runtime.Attributes;
+using fefek5.Toys.Runtime.Types;
 using Runtime;
 using UnityEngine;
 
@@ -29,14 +31,14 @@ namespace fefek5.Stats.Runtime
         public IReadOnlyList<Stat> Stats => _stats;
 
         /// <summary>Full path of the file the stats are saved to.</summary>
-        public string Path => System.IO.Path.GetFullPath(System.IO.Path.Combine(Application.persistentDataPath, _relativePath));
+        public string FullPath => _filePath.FullPath;
 
         #endregion
 
         #region Inspector Fields
 
-        [SerializeField, Tooltip("File the stats are saved to, relative to Application.persistentDataPath.")]
-        private string _relativePath = "Stats.json";
+        [SerializeField, FilePath("json"), Tooltip("File the stats are saved to.")]
+        private FilePath _filePath = new("Stats.json", PathRoot.PersistentData);
 
         [SerializeField, Tooltip("The stats held by this asset, all of them sub-assets of it. Managed from its inspector.")]
         private List<Stat> _stats = new();
@@ -46,11 +48,11 @@ namespace fefek5.Stats.Runtime
         #region Save and Load
 
         /// <summary>Writes every stat to the file, replacing what it held.</summary>
-        public void Save() => CreateSaveData().Save(Path);
+        public void Save() => CreateSaveData().Save(FullPath);
 
         /// <inheritdoc cref="Save"/>
         public async Awaitable SaveAsync(CancellationToken cancellationToken = default) =>
-            await CreateSaveData().SaveAsync(Path, cancellationToken);
+            await CreateSaveData().SaveAsync(FullPath, cancellationToken);
 
         /// <summary>
         /// Reads the file and hands every stat its value. A stat the file does not have, or every
@@ -58,7 +60,7 @@ namespace fefek5.Stats.Runtime
         /// </summary>
         public void Load()
         {
-            var path = Path;
+            var path = FullPath;
             var saveData = new SaveData();
 
             if (File.Exists(path))
@@ -70,7 +72,7 @@ namespace fefek5.Stats.Runtime
         /// <inheritdoc cref="Load"/>
         public async Awaitable LoadAsync(CancellationToken cancellationToken = default)
         {
-            var path = Path;
+            var path = FullPath;
             var saveData = new SaveData();
 
             if (File.Exists(path))

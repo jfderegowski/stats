@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- `StatsDB`'s save file is a toys `FilePath` from `PathRoot.PersistentData`, drawn with a browse
+  button and shown in yellow until the file exists.
+
 ## [2.0.0] - 2026-09-27
 
 ### Added
