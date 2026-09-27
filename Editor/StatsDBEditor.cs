@@ -110,12 +110,12 @@ namespace fefek5.Stats.Editor
             _list.RefreshItems();
 
             var duplicates = _stats.Where(stat => stat)
-                .GroupBy(stat => stat.SaveKey)
+                .GroupBy(stat => stat.name)
                 .Where(group => group.Count() > 1)
                 .Select(group => string.Join(", ", group.Select(stat => stat.name)))
                 .ToList();
 
-            _duplicates.text = "These stats share a Save Key, so only one of them keeps its value after a save: " +
+            _duplicates.text = "These stats share a name, which is the key they are saved under, so only one of them keeps its value after a save: " +
                                string.Join("; ", duplicates) + ".";
             _duplicates.style.display = duplicates.Count > 0 ? DisplayStyle.Flex : DisplayStyle.None;
 

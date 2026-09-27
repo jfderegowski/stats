@@ -14,8 +14,16 @@ namespace fefek5.Stats.Runtime
     /// </summary>
     public abstract class Stat : ScriptableObject
     {
-        [field: SerializeField, Tooltip("Key the value is saved under. Two stats saved together must not share it.")]
-        public SaveKey SaveKey { get; private set; } = SaveKey.RandomKey;
+        /// <summary>
+        /// The key the value is saved under: the name of the asset, so renaming a stat loses its
+        /// saved value. Made on each call, which only saving and loading do.
+        /// </summary>
+        public SaveKey SaveKey =>
+            _saveKey.StringKey.hasValue && _saveKey.StringKey.value == name
+                ? _saveKey
+                : _saveKey = new SaveKey(name);
+
+        private SaveKey _saveKey;
 
         /// <summary>Puts the value into <paramref name="saveData"/>, without touching any file.</summary>
         public abstract void WriteTo(SaveData saveData);

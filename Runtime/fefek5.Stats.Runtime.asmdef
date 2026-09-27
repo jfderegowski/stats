@@ -5,7 +5,8 @@
         "fefek5.Variables.SaveDataVariable.Runtime",
         "fefek5.SerializableGuidVariable.Runtime",
         "com.fefek5.toys.Runtime",
-        "fefek5.SingletonSystem.Runtime"
+        "fefek5.SingletonSystem.Runtime",
+        "fefek5.Variable.HasValue.Runtime"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
