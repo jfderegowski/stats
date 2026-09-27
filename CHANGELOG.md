@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- `Stat.IsInitialized`, set by `ReadFrom` (so by `StatsDB.Load`), and `Stat.IsDirty`, set by
+  `SetValue` and cleared by `ReadFrom`.
+
 ### Changed
+
+- `Stat<T>.GetValue`/`SetValue` throw `InvalidOperationException` until the stat is loaded.
 
 - `StatsDB`'s save file is a toys `FilePath` from `PathRoot.PersistentData`, drawn with a browse
   button and shown in yellow until the file exists.

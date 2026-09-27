@@ -25,6 +25,17 @@ namespace fefek5.Stats.Runtime
 
         private SaveKey _saveKey;
 
+        /// <summary>
+        /// Whether the value was read by <see cref="ReadFrom"/>, which <see cref="StatsDB.Load"/>
+        /// does. Until then getting or setting the value throws.
+        /// </summary>
+        [field: NonSerialized]
+        public bool IsInitialized { get; protected set; }
+
+        /// <summary>Whether the value was set since it was last read by <see cref="ReadFrom"/>.</summary>
+        [field: NonSerialized]
+        public bool IsDirty { get; protected set; }
+
         /// <summary>Puts the value into <paramref name="saveData"/>, without touching any file.</summary>
         public abstract void WriteTo(SaveData saveData);
 
@@ -86,13 +97,27 @@ namespace fefek5.Stats.Runtime
         // and bake the last played value into the build.
         [NonSerialized] private T _value;
 
-        protected virtual void OnEnable() => _value = _defaultValue;
+        protected virtual void OnEnable()
+        {
+            _value = _defaultValue;
+            IsInitialized = false;
+            IsDirty = false;
+        }
 
         #region Getters and Setters
 
-        public virtual T GetValue() => _value;
+        public virtual T GetValue()
+        {
+            ThrowIfNotInitialized();
+            return _value;
+        }
 
-        public virtual void SetValue(T value) => _value = value;
+        public virtual void SetValue(T value)
+        {
+            ThrowIfNotInitialized();
+            _value = value;
+            IsDirty = true;
+        }
 
         public virtual T GetDefaultValue() => _defaultValue;
 
@@ -104,7 +129,12 @@ namespace fefek5.Stats.Runtime
 
         public override void WriteTo(SaveData saveData) => saveData.SetKey(SaveKey, Value);
 
-        public override void ReadFrom(SaveData saveData) => Value = saveData.GetKey(SaveKey, DefaultValue);
+        public override void ReadFrom(SaveData saveData)
+        {
+            _value = saveData.GetKey(SaveKey, DefaultValue);
+            IsInitialized = true;
+            IsDirty = false;
+        }
 
         public override void ResetToDefault() => Value = DefaultValue;
 
@@ -155,6 +185,13 @@ namespace fefek5.Stats.Runtime
 
         #endregion
 
-        public override string ToString() => Value?.ToString() ?? "null";
+        private void ThrowIfNotInitialized()
+        {
+            if (!IsInitialized)
+                throw new InvalidOperationException($"Stat '{name}' was not loaded. Call StatsDB.Load first.");
+        }
+
+        // Reads the field, not Value: the StatsDB inspector shows this in play mode before loading too.
+        public override string ToString() => IsInitialized ? _value?.ToString() ?? "null" : "not loaded";
     }
 }
