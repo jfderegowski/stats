@@ -13,8 +13,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `StatsDB` singleton asset holding stats as sub-assets. `Save`/`SaveAsync` write every stat to
   one file in a single `SaveData`, `Load`/`LoadAsync` read it back and hand the values out.
-- `StatsDB` inspector for adding, renaming and removing stats, with live values in play
-  mode and a notice when two stats share a name. "Window/Stats/Stats DB" opens it.
+- `StatsDB` inspector: its stats in toys' `SubAssetListElement`, each a foldout with the stat's inspector,
+  live values in play mode and a notice when two stats share a name. The add button picks the
+  type of the new stat; a stat's type never changes afterwards. "Window/Stats/Stats DB" opens it.
+- `Stat` inspector with the name first, which renames the sub-asset or the asset file.
 - Non generic `Stat` base, so stats of mixed value types fit one list. A stat is saved under its
   asset name, so renaming it loses the saved value.
 - `Stat<T>.DefaultValue`, `ResetToDefault`, `WriteTo(SaveData)` and `ReadFrom(SaveData)`.
